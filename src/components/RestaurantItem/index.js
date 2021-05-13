@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import CustomCard from '../CustomCard';
 
 const RestaurantItem = props => {
-  const { item } = props;
+  const { item, setRating } = props;
 
-  return useMemo(() => <CustomCard item={item} />, [item]);
+  return useMemo(() => <CustomCard item={item} setRating={setRating} />, [item]);
 };
 
 RestaurantItem.propTypes = {

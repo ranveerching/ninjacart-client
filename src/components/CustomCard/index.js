@@ -7,9 +7,8 @@
 import React from 'react';
 import { Col, Card, Space, Typography, Rate } from 'antd';
 import PropTypes from 'prop-types';
-import LazyLoad from 'react-lazyload';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const CustomCard = props => {
   const {
@@ -17,6 +16,7 @@ const CustomCard = props => {
     direction,
     bordered,
     item,
+    setRating,
   } = props;
 
   return (
@@ -32,23 +32,19 @@ const CustomCard = props => {
         size='small'
         className='responsive-grid-title shadow-lg custom-card'
         cover={
-          <LazyLoad
-            height={250}
+          <div style={{
+            backgroundImage: `url(${item?.image})` ?? null,
+          }}
+            className='d-flex justify-content-center align-items-center image-container'
           >
-            <div style={{
-              backgroundImage: `url(${item?.image})` ?? null,
-            }}
-              className='d-flex justify-content-center align-items-center image-container'
-            >
-              <div className='linear-gradient-container'>
-                <div className='rating-container'>
-                  <div className='d-flex flex-row align-items-center'>
-                    <Rate allowHalf defaultValue={2.5} onChange={val => alert(val)} />
-                  </div>
+            <div className='linear-gradient-container'>
+              <div className='rating-container'>
+                <div className='d-flex flex-row align-items-center'>
+                  <Rate allowHalf defaultValue={item?.rating} onChange={val => setRating(item?.id, val)} />
                 </div>
               </div>
             </div>
-          </LazyLoad>
+          </div>
         }
       >
         <Card.Meta
@@ -57,11 +53,11 @@ const CustomCard = props => {
               direction={direction}
               className='w-100'
             >
-              <Title level={3} className='text-danger text-left mb-0' ellipsis>{item?.name ?? 'N/A'}</Title>
+              <Title level={4} className='text-danger text-left mt-1' ellipsis>{item?.name ?? 'N/A'}</Title>
               <a
                 href={`${item?.url}`}
                 target='blank'
-                className='link btn btn-danger w-100 mt-2 mb-2 font-weight-bold'>
+                className='link btn btn-danger w-100 mt-0 mb-2 font-weight-bold'>
                 Navigate
               </a>
             </Space>
