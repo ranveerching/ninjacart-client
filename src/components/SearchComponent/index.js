@@ -6,7 +6,7 @@ const SearchComponent = props => {
 
   return useMemo(() => {
     return (
-      <div className='mb-0 input-group'>
+      <div className='mb-0 input-group search-container'>
         <input
           type='text'
           className='form-control text-white'
@@ -15,9 +15,9 @@ const SearchComponent = props => {
           onChange={event => setTextInputValue(event?.nativeEvent?.target?.value)}
           style={{ backgroundColor: 'rgb(32, 32, 32)', borderColor: '#626368' }}
         />
-        <div class='input-group-append'>
+        <div className='input-group-append'>
           <button
-            class='btn btn-danger'
+            className='btn btn-danger'
             type='button'
             onClick={() => filterRestaurants(searchKey, sortKey)}
           >

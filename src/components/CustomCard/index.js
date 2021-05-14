@@ -4,11 +4,11 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Card, Space, Typography, Rate } from 'antd';
 import PropTypes from 'prop-types';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const CustomCard = props => {
   const {
@@ -19,6 +19,8 @@ const CustomCard = props => {
     setRating,
   } = props;
 
+  const [isLoading, setLoading] = useState(false);
+
   return (
     <Col
       xs={gridConfig.xs}
@@ -26,25 +28,33 @@ const CustomCard = props => {
       md={gridConfig.md}
       lg={gridConfig.lg}
       xl={gridConfig.xl}
+      xxl={gridConfig.xxl}
     >
       <Card
         bordered={bordered}
         size='small'
         className='responsive-grid-title shadow-lg custom-card'
         cover={
-          <div style={{
-            backgroundImage: `url(${item?.image})` ?? null,
-          }}
-            className='d-flex justify-content-center align-items-center image-container'
-          >
+          <>
+            <img
+              alt=""
+              src={item?.image}
+              className='position-absolute image-container'
+              onLoadStart={() => setLoading(true)}
+              onLoad={() => console.log('Load Success!')}
+              onError={() => console.log('Load Failed!!!')}
+            />
             <div className='linear-gradient-container'>
               <div className='rating-container'>
                 <div className='d-flex flex-row align-items-center'>
-                  <Rate allowHalf defaultValue={item?.rating} onChange={val => setRating(item?.id, val)} />
+                  <Rate allowHalf value={item?.rating} onChange={val => setRating(item?.id, val)} />
+                  <Text className='text-white pt-1 pl-2 font-italic rating-number-text'>
+                    {item?.rating}
+                  </Text>
                 </div>
               </div>
             </div>
-          </div>
+          </>
         }
       >
         <Card.Meta
@@ -81,10 +91,11 @@ CustomCard.defaultProps = {
   title: null,
   gridConfig: {
     xs: 24,
-    sm: 12,
+    sm: 24,
     md: 12,
     lg: 12,
-    xl: 12
+    xl: 12,
+    xxl: 12,
   }
 };
 

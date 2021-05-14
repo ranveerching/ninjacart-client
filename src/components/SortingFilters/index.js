@@ -8,7 +8,7 @@ const SortingFilters = props => {
 
   return useMemo(() => {
     return (
-      <div className='d-flex flex-row align-items-center justify-content-end'>
+      <div className='d-flex flex-row align-items-center justify-content-end filter-container'>
         <Typography.Text className='pr-2 text-white'>
           Sort by Rating :{' '}
         </Typography.Text>

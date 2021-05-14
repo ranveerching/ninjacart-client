@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import CustomCard from '../CustomCard';
 
-const RestaurantItem = props => {
+const PortfolioItem = props => {
   const { item, setRating } = props;
 
   return useMemo(() => <CustomCard item={item} setRating={setRating} />, [item]);
 };
 
-RestaurantItem.propTypes = {
+PortfolioItem.propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-export default RestaurantItem;
+export default PortfolioItem;

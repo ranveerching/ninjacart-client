@@ -1,12 +1,12 @@
 import './App.css';
-import Router from './router';
+import Portfolio from './containers/Portfolio';
 import AppProvider from './context/provider';
 
 function App() {
   return (
     <div className="App">
       <AppProvider>
-        <Router />
+        <Portfolio />
       </AppProvider>
     </div>
   );
