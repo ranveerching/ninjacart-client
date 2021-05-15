@@ -5,7 +5,7 @@ import CustomCard from '../CustomCard';
 const PortfolioItem = props => {
   const { item, setRating } = props;
 
-  return useMemo(() => <CustomCard item={item} setRating={setRating} />, [item]);
+  return useMemo(() => <CustomCard item={item} setRating={setRating} direction='horizontal' />, [item]);
 };
 
 PortfolioItem.propTypes = {
