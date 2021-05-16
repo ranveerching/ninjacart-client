@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Card, Space, Typography, Badge } from 'antd';
+import { Col, Card, Space, Typography, Badge, Spin } from 'antd';
 
 const { Title } = Typography;
 
@@ -39,7 +39,8 @@ const PortfolioItem = props => {
             </div>
           }
           cover={
-            <div className="embed-responsive embed-responsive-16by9">
+            <div className="embed-responsive embed-responsive-16by9 text-center">
+              <Spin size="large" className='position-absolute loading-spinner' />
               <iframe title={item.title} className="embed-responsive-item" src={item?.url}></iframe>
             </div>
           }
