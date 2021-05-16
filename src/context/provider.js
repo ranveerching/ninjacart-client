@@ -4,25 +4,25 @@ import orderBy from "lodash/orderBy";
 import isEqual from "lodash/isEqual";
 import map from 'lodash/map';
 
-import fakeData from '../utils/fakeData';
+import favouritesSites from '../utils/fakeData';
 import AppContext from "./context";
 
 const AppProvider = (props) => {
-  const [restaurants, setRestaurants] = useState([...fakeData]);
+  const [favourites, setFavourites] = useState([...favouritesSites]);
 
   const [sortKey, updateSortKey] = useState("");
   const [searchKey, updateSearchKey] = useState("");
 
-  let tempArray = useRef([...restaurants]);
+  let tempArray = useRef([...favourites]);
 
   return (
     <AppContext.Provider
       value={{
-        restaurants,
+        favourites,
         sortKey,
         searchKey,
         setTextInputValue: (val) => updateSearchKey(val),
-        filterRestaurants: (key, sortKey) => {
+        filterFavourites: (key, sortKey) => {
           let filteredData = filter(tempArray?.current, (item) => {
             const brand = item?.name.toLowerCase();
             const updatedKey = key.toLowerCase();
@@ -33,24 +33,24 @@ const AppProvider = (props) => {
             filteredData = orderBy(filteredData, ["rating"], [sortKey]);
           }
 
-          setRestaurants([...filteredData]);
+          setFavourites([...filteredData]);
         },
-        setRating: (id, rating) => {
+        setUpvote: (id, rating) => {
           tempArray.current = map(tempArray.current, item => {
             const itemObj = { ...item };
 
             if (isEqual(itemObj?.id, id)) {
-              itemObj.rating = rating;
+              itemObj.upvote += 1;
             }
 
             return itemObj;
           });
 
-          setRestaurants(prevState => map(prevState, item => {
+          setFavourites(prevState => map(prevState, item => {
             const itemObj = { ...item };
 
             if (isEqual(itemObj?.id, id)) {
-              itemObj.rating = rating;
+              itemObj.upvote += 1;
             }
 
             return itemObj;
@@ -59,11 +59,11 @@ const AppProvider = (props) => {
         sortBy: (order) => {
           updateSortKey(order);
           if (isEqual(order, "")) {
-            setRestaurants([...tempArray.current]);
+            setFavourites([...tempArray.current]);
             updateSearchKey("");
           } else {
-            const sortedData = orderBy(restaurants, ["rating"], [order]);
-            setRestaurants([...sortedData]);
+            const sortedData = orderBy(favourites, ["upvote"], [order]);
+            setFavourites([...sortedData]);
           }
         },
       }}

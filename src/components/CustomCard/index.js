@@ -16,10 +16,8 @@ const CustomCard = props => {
     direction,
     bordered,
     item,
-    setRating,
+    setUpvote,
   } = props;
-
-  const [isLoading, setLoading] = useState(false);
 
   return (
     <Col
@@ -31,7 +29,7 @@ const CustomCard = props => {
       xxl={gridConfig.xxl}
     >
       <Badge.Ribbon
-        text='Likes: 10'
+        text={`Likes: ${item?.upvote}`}
         color='#dc3545'
         placement='end'
       >
@@ -59,18 +57,19 @@ const CustomCard = props => {
                 direction={direction}
                 className='w-100'
               >
-                <a
-                  href={`${item?.url}`}
-                  target='blank'
-                  className='link btn btn-warning mt-2 mb-2 font-weight-bold footer-btn'>
+                <button
+                  className='link btn btn-warning mt-2 mb-2 font-weight-bold footer-btn'
+                  onClick={() => setUpvote(item?.id)}
+                >
                   Upvote
-              </a>
+                </button>
                 <a
                   href={`${item?.url}`}
                   target='blank'
-                  className='link btn btn-danger mt-2 mb-2 font-weight-bold footer-btn'>
+                  className='link btn btn-danger mt-2 mb-2 font-weight-bold footer-btn'
+                >
                   Navigate
-              </a>
+                </a>
               </Space>
             }
           />

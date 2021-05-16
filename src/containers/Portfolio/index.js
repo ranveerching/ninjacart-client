@@ -11,13 +11,13 @@ const { Title } = Typography;
 
 const Portfolio = () => {
   const {
-    restaurants,
-    filterRestaurants,
+    favourites,
+    filterFavourites,
     setTextInputValue,
     sortKey,
     searchKey,
     sortBy,
-    setRating,
+    setUpvote,
   } = useContext(AppContext);
 
   return (
@@ -32,7 +32,7 @@ const Portfolio = () => {
           xxl={12}
         >
           <SearchComponent
-            filterRestaurants={filterRestaurants}
+            filterFavourites={filterFavourites}
             sortKey={sortKey}
             searchKey={searchKey}
             setTextInputValue={setTextInputValue}
@@ -53,7 +53,7 @@ const Portfolio = () => {
 
       <Title level={2} className='text-danger text-left font-italic mt-5'>My Favourites</Title>
       <Row gutter={[30, 30]}>
-        {map(restaurants, item => <PortfolioItem key={item.id} item={item} setRating={setRating} />)}
+        {map(favourites, item => <PortfolioItem key={item.id} item={item} setUpvote={setUpvote} />)}
       </Row>
     </div>
   );

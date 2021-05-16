@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 const SearchComponent = props => {
-  const { filterRestaurants, setTextInputValue, sortKey, searchKey } = props;
+  const { filterFavourites, setTextInputValue, sortKey, searchKey } = props;
 
   return useMemo(() => {
     return (
@@ -19,18 +19,18 @@ const SearchComponent = props => {
           <button
             className='btn btn-danger'
             type='button'
-            onClick={() => filterRestaurants(searchKey, sortKey)}
+            onClick={() => filterFavourites(searchKey, sortKey)}
           >
             Search
           </button>
         </div>
       </div>
     );
-  }, [filterRestaurants, setTextInputValue, sortKey, searchKey]);
+  }, [filterFavourites, setTextInputValue, sortKey, searchKey]);
 };
 
 SearchComponent.propTypes = {
-  filterRestaurants: PropTypes.func.isRequired,
+  filterFavourites: PropTypes.func.isRequired,
   setTextInputValue: PropTypes.func,
   sortKey: PropTypes.string,
   searchKey: PropTypes.string,

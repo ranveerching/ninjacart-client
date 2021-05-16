@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import CustomCard from '../CustomCard';
 
 const PortfolioItem = props => {
-  const { item, setRating } = props;
+  const { item, setUpvote } = props;
 
-  return useMemo(() => <CustomCard item={item} setRating={setRating} direction='horizontal' />, [item]);
+  return useMemo(() => <CustomCard item={item} setUpvote={setUpvote} direction='horizontal' />, [item]);
 };
 
 PortfolioItem.propTypes = {
