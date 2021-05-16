@@ -4,66 +4,118 @@ import orderBy from "lodash/orderBy";
 import isEqual from "lodash/isEqual";
 import map from 'lodash/map';
 
-import favouritesSites from '../utils/fakeData';
+import { myCreations, favouritesSites } from '../utils/fakeData';
 import AppContext from "./context";
 
 const AppProvider = (props) => {
-  const [favourites, setFavourites] = useState([...favouritesSites]);
+  const [blogs, setBlogs] = useState({
+    myCreations: [...myCreations],
+    myFavourites: [...favouritesSites],
+  });
 
   const [sortKey, updateSortKey] = useState("");
   const [searchKey, updateSearchKey] = useState("");
 
-  let tempArray = useRef([...favourites]);
+  let tempArray = useRef({
+    ...blogs,
+    myCreations: [...blogs?.myCreations],
+    myFavourites: [...blogs?.myFavourites],
+  });
 
   return (
     <AppContext.Provider
       value={{
-        favourites,
+        blogs,
         sortKey,
         searchKey,
         setTextInputValue: (val) => updateSearchKey(val),
         filterFavourites: (key, sortKey) => {
-          let filteredData = filter(tempArray?.current, (item) => {
-            const brand = item?.name.toLowerCase();
+          let filteredMyCreationsData = filter(tempArray.current.myCreations, item => {
+            const lowerCaseItem = item?.name.toLowerCase();
             const updatedKey = key.toLowerCase();
-            return brand.indexOf(updatedKey) > -1;
+            return lowerCaseItem?.indexOf(updatedKey) > -1;
+          });
+
+          let filteredMyFavouritesData = filter(tempArray.current.myFavourites, item => {
+            const lowerCaseItem = item?.name.toLowerCase();
+            const updatedKey = key.toLowerCase();
+            return lowerCaseItem?.indexOf(updatedKey) > -1;
           });
 
           if (!isEqual(sortKey, "")) {
-            filteredData = orderBy(filteredData, ["rating"], [sortKey]);
+            filteredMyCreationsData = orderBy(filteredMyCreationsData, ["upvote"], [sortKey]);
+            filteredMyFavouritesData = orderBy(filteredMyFavouritesData, ["upvote"], [sortKey]);
           }
 
-          setFavourites([...filteredData]);
-        },
-        setUpvote: (id, rating) => {
-          tempArray.current = map(tempArray.current, item => {
-            const itemObj = { ...item };
-
-            if (isEqual(itemObj?.id, id)) {
-              itemObj.upvote += 1;
-            }
-
-            return itemObj;
+          setBlogs({
+            ...blogs,
+            myCreations: [...filteredMyCreationsData],
+            myFavourites: [...filteredMyFavouritesData],
           });
+        },
+        setUpvote: id => {
+          tempArray.current = {
+            ...tempArray?.current,
+            myCreations: map(tempArray.current.myCreations, item => {
+              const itemObj = { ...item };
 
-          setFavourites(prevState => map(prevState, item => {
-            const itemObj = { ...item };
+              if (isEqual(itemObj?.id, id)) {
+                itemObj.upvote += 1;
+              }
 
-            if (isEqual(itemObj?.id, id)) {
-              itemObj.upvote += 1;
+              return itemObj;
+            }),
+            myFavourites: map(tempArray.current.myFavourites, item => {
+              const itemObj = { ...item };
+
+              if (isEqual(itemObj?.id, id)) {
+                itemObj.upvote += 1;
+              }
+
+              return itemObj;
+            })
+          };
+
+          setBlogs(prevState => {
+            return {
+              ...prevState,
+              myCreations: map(prevState.myCreations, item => {
+                const itemObj = { ...item };
+
+                if (isEqual(itemObj?.id, id)) {
+                  itemObj.upvote += 1;
+                }
+
+                return itemObj;
+              }),
+              myFavourites: map(prevState.myFavourites, item => {
+                const itemObj = { ...item };
+
+                if (isEqual(itemObj?.id, id)) {
+                  itemObj.upvote += 1;
+                }
+
+                return itemObj;
+              }),
             }
-
-            return itemObj;
-          }));
+          });
         },
         sortBy: (order) => {
           updateSortKey(order);
           if (isEqual(order, "")) {
-            setFavourites([...tempArray.current]);
+            setBlogs({
+              ...tempArray.current,
+              myCreations: [...tempArray.current.myCreations],
+              myFavourites: [...tempArray.current.myFavourites],
+            });
             updateSearchKey("");
           } else {
-            const sortedData = orderBy(favourites, ["upvote"], [order]);
-            setFavourites([...sortedData]);
+            const sortedData = {
+              ...blogs,
+              myCreations: orderBy(blogs.myCreations, ["upvote"], [order]),
+              myFavourites: orderBy(blogs.myFavourites, ["upvote"], [order])
+            };
+            setBlogs({ ...sortedData });
           }
         },
       }}

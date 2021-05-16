@@ -1,30 +1,24 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import tutorialsCapitalIcon from '../assets/images/tutorialscapital.png';
 import gitLabIcon from '../assets/images/gitlab.png';
-import flutterIcon from '../assets/images/flutter.png';
-import javascriptIcon from '../assets/images/javascript.png';
 import reactNativeIcon from '../assets/images/react-native.png';
 import reduxIcon from '../assets/images/redux.png';
 import angularIcon from '../assets/images/angular.png';
-import antdIcon from '../assets/images/antd.png';
+
+const myCreations = [{
+  id: uuidv4(),
+  name: 'Tutorials Capital',
+  image: tutorialsCapitalIcon,
+  url: 'https://tutorialscapital.com/',
+  upvote: 0,
+}];
 
 const favouritesSites = [{
   id: uuidv4(),
   name: 'Git Lab',
   image: gitLabIcon,
   url: 'https://about.gitlab.com/',
-  upvote: 0,
-}, {
-  id: uuidv4(),
-  name: 'Flutter',
-  image: flutterIcon,
-  url: 'https://flutter.dev/',
-  upvote: 0,
-}, {
-  id: uuidv4(),
-  name: 'Javascript',
-  image: javascriptIcon,
-  url: 'https://www.javascript.com/',
   upvote: 0,
 }, {
   id: uuidv4(),
@@ -44,12 +38,9 @@ const favouritesSites = [{
   image: angularIcon,
   url: 'https://angular.io/',
   upvote: 0,
-}, {
-  id: uuidv4(),
-  name: 'Antd',
-  image: antdIcon,
-  url: 'https://ant.design/',
-  upvote: 0,
 }];
 
-export default favouritesSites;
+export {
+  myCreations,
+  favouritesSites,
+}
