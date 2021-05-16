@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import tutorialsCapitalIcon from '../assets/images/tutorialscapital.png';
 import gitLabIcon from '../assets/images/gitlab.png';
-import reactNativeIcon from '../assets/images/react-native.png';
+import flutterIcon from '../assets/images/flutter.png';
 import reduxIcon from '../assets/images/redux.png';
 import angularIcon from '../assets/images/angular.png';
 
@@ -22,9 +22,9 @@ const favouritesSites = [{
   upvote: 0,
 }, {
   id: uuidv4(),
-  name: 'React Native',
-  image: reactNativeIcon,
-  url: 'https://reactnative.dev/',
+  name: 'Flutter',
+  image: flutterIcon,
+  url: 'https://flutter.dev/',
   upvote: 0,
 }, {
   id: uuidv4(),
